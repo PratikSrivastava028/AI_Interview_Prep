@@ -71,17 +71,17 @@ const InterviewPrep = () => {
 
       <div className="max-w-4xl mx-auto space-y-8">
         {/* ── Header ── */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-6 transition-colors">
           <div>
-            <p className="text-xs text-indigo-500 font-bold tracking-wide uppercase mb-1 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
+            <p className="text-xs text-indigo-500 dark:text-indigo-400 font-bold tracking-wide uppercase mb-1 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-indigo-500 dark:bg-indigo-400"></span>
               Session #{id?.slice(0, 8)}
             </p>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-800 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight transition-colors">
               Interview Questions
             </h1>
             {!loading && !fetchError && (
-              <p className="text-sm font-medium text-slate-500 mt-2">
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-2 transition-colors">
                 {questions.length > 0
                   ? `${questions.length} questions prepared for you`
                   : "Start by generating technical questions"}
