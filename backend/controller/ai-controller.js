@@ -40,7 +40,6 @@ export const generateInterviewQuestions = async (req, res) => {
     }
 
     const { role, experience, topicsToFocus } = session;
-    console.log("session: ", session);
 
     //? 2. generate via Gemini
     const prompt = questionAnswerPrompt(role, experience, topicsToFocus, 10);
