@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import InterviewPrep from "./pages/InterviewPrep";
+import MainLayout from "./layouts/MainLayout";
 
 const App = () => {
   return (
@@ -12,8 +13,12 @@ const App = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/interview/:id" element={<InterviewPrep />} />
+      
+      {/* Protected Layout Routes */}
+      <Route element={<MainLayout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/interview/:id" element={<InterviewPrep />} />
+      </Route>
     </Routes>
   );
 };

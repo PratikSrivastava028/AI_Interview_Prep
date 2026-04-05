@@ -63,68 +63,75 @@ const InterviewPrep = () => {
   }, [fetchQuestions]);
 
   return (
-    <div className="w-full min-h-screen bg-slate-50">
+    <div className="w-full animate-in fade-in duration-500">
       <Toaster
         position="top-right"
         toastOptions={{ className: "!text-sm !font-medium" }}
       />
 
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      <div className="max-w-4xl mx-auto space-y-8">
         {/* ── Header ── */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
           <div>
-            <p className="text-xs text-slate-400 font-medium tracking-wide uppercase mb-1">
-              Session ID: {id?.slice(0, 8)}
+            <p className="text-xs text-indigo-500 font-bold tracking-wide uppercase mb-1 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
+              Session #{id?.slice(0, 8)}
             </p>
-            <h1 className="text-2xl font-bold text-slate-800">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-800 tracking-tight">
               Interview Questions
             </h1>
             {!loading && !fetchError && (
-              <p className="text-sm text-slate-500 mt-0.5">
+              <p className="text-sm font-medium text-slate-500 mt-2">
                 {questions.length > 0
-                  ? `${questions.length} question${questions.length !== 1 ? "s" : ""} ready`
-                  : "No questions yet"}
+                  ? `${questions.length} questions prepared for you`
+                  : "Start by generating technical questions"}
               </p>
             )}
           </div>
 
-          <GenerateButton
-            onClick={generateQuestions}
-            generating={generating}
-            loading={loading}
-          />
+          <div className="shrink-0 mt-4 sm:mt-0">
+            <GenerateButton
+              onClick={generateQuestions}
+              generating={generating}
+              loading={loading}
+              hasQuestions={questions.length > 0}
+            />
+          </div>
         </div>
 
-        {/* ── Divider ── */}
-        <div className="border-t border-slate-200 mb-8" />
-
         {/* ── Content ── */}
-        {loading ? (
-          <div className="space-y-4">
-            {[...Array(4)].map((_, i) => (
-              <SkeletonCard key={i} />
-            ))}
-          </div>
-        ) : fetchError ? (
-          <ErrorBanner message={fetchError} onRetry={fetchQuestions} />
-        ) : questions.length === 0 ? (
-          <EmptyState onGenerate={generateQuestions} generating={generating} />
-        ) : (
-          <AnimatePresence>
+        <div className="pt-2">
+          {loading ? (
             <div className="space-y-4">
-              {questions.map((q, i) => (
-                <motion.div
-                  key={q._id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2, delay: i * 0.05 }}
-                >
-                  <QAItem item={q} />
-                </motion.div>
+              {[...Array(4)].map((_, i) => (
+                <SkeletonCard key={i} />
               ))}
             </div>
-          </AnimatePresence>
-        )}
+          ) : fetchError ? (
+            <ErrorBanner message={fetchError} onRetry={fetchQuestions} />
+          ) : questions.length === 0 ? (
+            <EmptyState onGenerate={generateQuestions} generating={generating} />
+          ) : (
+            <AnimatePresence>
+              <div className="space-y-6">
+                {questions.map((q, i) => (
+                  <motion.div
+                    key={q._id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                  >
+                    <QAItem 
+                      item={q} 
+                      index={i} 
+                      total={questions.length} 
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </AnimatePresence>
+          )}
+        </div>
       </div>
     </div>
   );
