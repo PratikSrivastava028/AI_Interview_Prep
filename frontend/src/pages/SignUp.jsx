@@ -18,8 +18,10 @@ const SignUp = () => {
   const handleSignup = async () => {
     setLoading(true);
     try {
-      await axios.post(API_PATHS.AUTH.SIGNUP, form);
-      navigate("/login");
+      const res = await axios.post(API_PATHS.AUTH.SIGNUP, form);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userName", res.data.name);
+      navigate("/dashboard");
     } catch (error) {
       console.log(error.response);
       alert("Signup failed");
