@@ -2,7 +2,7 @@ const isLocal = window.location.hostname === "localhost" || window.location.host
 
 const BASE_URL = isLocal 
   ? "http://localhost:3000/api" 
-  : "https://ai-interview-prep-38pn.onrender.com/api";
+  : "https://ai-interview-prep-ajxo.onrender.com/api";
 
 export const API_PATHS = {
   AUTH: {
