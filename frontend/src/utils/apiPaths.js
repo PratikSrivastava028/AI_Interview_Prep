@@ -1,5 +1,7 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL
-  ? `${import.meta.env.VITE_API_BASE_URL}/api`
+const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+const BASE_URL = isLocal 
+  ? "http://localhost:3000/api" 
   : "https://ai-interview-prep-38pn.onrender.com/api";
 
 export const API_PATHS = {
