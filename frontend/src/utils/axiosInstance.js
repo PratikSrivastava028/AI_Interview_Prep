@@ -1,9 +1,8 @@
 import axios from "axios";
+import { BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL 
-    ? `${import.meta.env.VITE_API_BASE_URL}/api` 
-    : "https://ai-interview-prep-38pn.onrender.com/api",
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
