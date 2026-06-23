@@ -37,11 +37,22 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, postman)
+      // Allow requests with no origin (like mobile apps, curl)
       if (!origin) return callback(null, true);
+      
+      const isLocalhost = origin.includes("localhost") || origin.includes("127.0.0.1");
+      const isLocalIP = /^http:\/\/(192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)(:\d+)?$/.test(origin);
 
-      // Simple permissive CORS for development and deployment
-      return callback(null, true);
+      if (process.env.NODE_ENV !== "production" && (isLocalhost || isLocalIP)) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        return callback(null, true);
+      } else {
+        // Return false instead of throwing an error so the browser gets a clean CORS block without a 500 Internal Server Error
+        return callback(null, false);
+      }
     },
     credentials: true,
   }),
