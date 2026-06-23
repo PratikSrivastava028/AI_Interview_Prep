@@ -6,7 +6,7 @@ const getBaseURL = () => {
   }
 
   // Fallback to the live backend URL so anyone can use the frontend without local backend setup
-  return "https://ai-interview-prep-ajxo.onrender.com/api";
+  return "https://ai-interview-prep-lksz.onrender.com/api";
 };
 
 export const BASE_URL = getBaseURL();
