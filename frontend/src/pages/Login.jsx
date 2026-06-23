@@ -23,7 +23,8 @@ const Login = () => {
       localStorage.setItem("userName", res.data.name);
       navigate("/dashboard");
     } catch (error) {
-      alert("Invalid email and password");
+      const errorMsg = error.response?.data?.message || error.message || "An error occurred";
+      alert(errorMsg);
     } finally {
       setLoading(false);
     }

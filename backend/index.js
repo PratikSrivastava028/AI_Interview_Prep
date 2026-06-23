@@ -40,19 +40,8 @@ app.use(
       // Allow requests with no origin (like mobile apps, curl, postman)
       if (!origin) return callback(null, true);
 
-      // In non-production, dynamically allow localhost and local subnet IPs (192.168.x.x, 10.x.x.x, 172.16-31.x.x)
-      const isLocalhost = origin.includes("localhost") || origin.includes("127.0.0.1");
-      const isLocalIP = /^http:\/\/(192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)(:\d+)?$/.test(origin);
-
-      if (process.env.NODE_ENV !== "production" && (isLocalhost || isLocalIP)) {
-        return callback(null, true);
-      }
-
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        return callback(null, true);
-      } else {
-        return callback(new Error("Not allowed by CORS"));
-      }
+      // Simple permissive CORS for development and deployment
+      return callback(null, true);
     },
     credentials: true,
   }),

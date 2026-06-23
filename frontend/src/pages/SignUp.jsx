@@ -23,8 +23,8 @@ const SignUp = () => {
       localStorage.setItem("userName", res.data.name);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error.response);
-      alert("Signup failed");
+      const errorMsg = error.response?.data?.message || error.message || "An error occurred";
+      alert(errorMsg);
     } finally {
       setLoading(false);
     }

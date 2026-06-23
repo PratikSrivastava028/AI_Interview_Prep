@@ -1,33 +1,11 @@
 const getBaseURL = () => {
   const envUrl = import.meta.env.VITE_API_BASE_URL;
-  const hostname = window.location.hostname;
-  
-  const isLocalHost = hostname === "localhost" || hostname === "127.0.0.1";
-  const isLocalIP = hostname.startsWith("192.168.") || hostname.startsWith("10.") || hostname.startsWith("172.");
-  const isLocal = isLocalHost || isLocalIP;
-
-  if (isLocal) {
-    let port = "5000"; // Default local backend port
-    if (envUrl) {
-      try {
-        const urlObj = new URL(envUrl);
-        if (urlObj.port) {
-          port = urlObj.port;
-        }
-      } catch (e) {
-        // Fallback if envUrl is just a port number
-        if (/^\d+$/.test(envUrl)) {
-          port = envUrl;
-        }
-      }
-    }
-    return `http://${hostname}:${port}/api`;
-  }
 
   if (envUrl) {
     return envUrl.endsWith("/api") ? envUrl : `${envUrl}/api`;
   }
 
+  // Fallback to the live backend URL so anyone can use the frontend without local backend setup
   return "https://ai-interview-prep-ajxo.onrender.com/api";
 };
 
