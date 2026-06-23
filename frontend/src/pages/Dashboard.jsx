@@ -49,7 +49,8 @@ const Dashboard = () => {
       const res = await axiosInstance.get(API_PATHS.SESSION.GET_ALL);
       setSessions(res.data.sessions);
     } catch (error) {
-      console.log(error.response);
+      const errorMsg = error.response?.data?.message || error.message || "Failed to fetch sessions";
+      alert(errorMsg);
     } finally {
       setLoading(false);
     }
